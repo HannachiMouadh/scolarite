@@ -1,0 +1,57 @@
+<mat-toolbar>
+  <span>{{service.form.controls['$key'].value?"Modifier enseignant":"Nouveau enseignant"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <input type="hidden" formControlName="$key">
+        <mat-form-field>
+          <input formControlName="nomPrenom" matInput placeholder="Nom Complet*">
+          <mat-error>Ce champ est obligatoir !!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="email" matInput placeholder="Email">
+          <mat-error *ngIf="service.form.controls['email'].errors?.required">Ce champ est obligatoir !!</mat-error>
+          <mat-error *ngIf="service.form.controls['email'].errors?.email">Adress Email invalid !!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="telep" matInput placeholder="Num.téléphone*">
+          <mat-error *ngIf="service.form.controls['telep'].errors?.required">Ce champ est obligatoir !!</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input formControlName="ville" matInput placeholder="Ville de residence">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="department" placeholder="Département">
+            <mat-option>Aucune</mat-option>
+            <ng-container *ngFor="let department of departmentService.array">
+              <mat-option value="{{department.$key}}">{{department.name}}-{{department.code}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="dateEmb" matInput [matDatepicker]="picker3" placeholder="Debut d'enseignement">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+        <div class="add-bottom-padding">
+          <mat-radio-group formControlName="chef">
+            <mat-radio-button value="oui">chef dép.</mat-radio-button>
+            <mat-radio-button value="non">enseignant</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Ajouter</button>
+          <button mat-raised-button color="warn" (click)="onClear()">Effacer</button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

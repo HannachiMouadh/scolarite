@@ -1,0 +1,59 @@
+<mat-toolbar>
+    <span>{{etudService.form.controls['$key'].value?"Modifier Etudiant":"Nouveau Etudiant"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+  </mat-toolbar>
+  <form [formGroup]="etudService.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <input type="hidden" formControlName="$key">
+          <mat-form-field>
+            <input formControlName="nomComplet" matInput placeholder="Nom Complet*">
+            <mat-error>Ce champ est obligatoir !!</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="emaill" matInput placeholder="Email*">
+            <mat-error *ngIf="etudService.form.controls['emaill'].errors?.required">Ce champ est obligatoir !!</mat-error>
+            <mat-error *ngIf="etudService.form.controls['emaill'].errors?.email">Adress Email invalid !!</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="telephone" matInput placeholder="Num.téléphone*">
+            <mat-error *ngIf="etudService.form.controls['telephone'].errors?.required">Ce champ est obligatoir !!</mat-error>
+            <mat-error *ngIf="etudService.form.controls['telephone'].errors?.minlength">Minimum 8 charactère !!</mat-error>
+          </mat-form-field>
+            </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+
+
+        <div class="controles-container">
+          <mat-form-field>
+            <input formControlName="CIN" matInput placeholder="CIN*">
+            <mat-error *ngIf="etudService.form.controls['CIN'].errors?.required">Ce champ est obligatoir !!</mat-error>
+            <mat-error *ngIf="etudService.form.controls['CIN'].errors?.minlength">Minimum 8 charactère !!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker4" placeholder="Date d'inscrit" formControlName="DateIns">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+     
+          </mat-form-field>
+          
+          <mat-form-field>
+            <mat-select formControlName="specialite" placeholder="Spécialité">
+              <mat-option>Aucune</mat-option>
+              <ng-container *ngFor="let specialite of specialiteService.array">
+                <mat-option value="{{specialite.$key}}">{{specialite.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="etudService.form.invalid">Ajouter</button>
+            <button mat-raised-button color="warn" (click)="onClear()">Effacer</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>

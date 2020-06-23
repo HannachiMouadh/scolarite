@@ -1,0 +1,38 @@
+<mat-sidenav-container color="bg-info" class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+      <mat-toolbar>Menu</mat-toolbar><br>
+    <mat-toolbar class="text-success" *ngIf="(user | async)?.uid">
+    Connecté: <br>
+     {{(user | async)?.email}}
+    </mat-toolbar>
+    <mat-nav-list>
+      <br><br>
+      <mat-list-item class="list" *ngIf="(user | async) && !(isEns | async) && !(isAdmin | async)"> <button  mat-icon-button routerLink="demandetds"><mat-icon>assignment_returned </mat-icon> Demande d'attestation</button></mat-list-item>
+          <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="etudiants"><mat-icon>school </mat-icon> Gestion des etudiants</button></mat-list-item> 
+          <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="enseignants"><mat-icon>group_add </mat-icon> Gestion des enseignants</button></mat-list-item> 
+          <mat-list-item class="list" *ngIf="(isEns | async)"> <button  mat-icon-button routerLink="depot-note" ><mat-icon>speaker_notes </mat-icon> Dépot notes </button></mat-list-item>
+          <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="demande-list" ><mat-icon>list_alt </mat-icon> Valider les demandes </button></mat-list-item>
+          <mat-list-item class="list" *ngIf="(user | async) && !(isEns | async) && !(isAdmin | async)"> <button  mat-icon-button routerLink="notes-list" ><mat-icon>list_alt </mat-icon>Les notes attribués </button></mat-list-item>
+        </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Gestion scolarité</span>
+      <br><br>
+      <button class="topright" mat-icon-button (click)="onLogout()">Déconnection <mat-icon>exit_to_app</mat-icon></button>    
+      </mat-toolbar>
+    <ng-content></ng-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

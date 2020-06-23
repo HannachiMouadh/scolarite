@@ -1,0 +1,68 @@
+<mat-toolbar>
+  <span>{{depotNoteService.form.controls['$key'].value?"MODIFIER NOTE":"AJOUTER NOTE"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="depotNoteService.form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="2" rowHeight="300px">
+
+   <mat-grid-tile>
+    <div class="controles-container">
+        <input type="hidden" formControlName="$key">
+
+        <mat-form-field>
+          <mat-label>Nom etudiant</mat-label>
+          <mat-select formControlName="nameFull">
+            <mat-option *ngFor="let etudiant of etudiants" [value]="etudiant.value">
+              {{etudiant.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Ce champ est obligatoir !</mat-error>
+        </mat-form-field>
+
+      <mat-form-field>
+          <input formControlName="dateAttribution" matInput [matDatepicker]="picker1" placeholder="Date attribution">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error>Choisissez une date !</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Classe</mat-label>
+        <mat-select formControlName="classe">
+          <mat-option *ngFor="let class of classes" [value]="class.value">
+            {{class.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Ce champ est obligatoir !!</mat-error>
+      </mat-form-field>
+  
+    </div>
+   </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="controles-container">
+
+        <mat-form-field>
+          <mat-label>Matière</mat-label>
+          <mat-select formControlName="matiere">
+            <mat-option *ngFor="let subject of subjects" [value]="subject.value">
+              {{subject.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Ce champ est obligatoir !!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="cin" matInput placeholder="CIN">
+          <mat-error>Ce champ est obligatoir !!</mat-error>
+        </mat-form-field>
+              <br>
+            <div class="button-row">
+                <button mat-raised-button color="primary" type="submit"  [disabled]="depotNoteService.form.invalid">AJOUTER</button>
+                <button mat-raised-button color="warn" (click)="onEffacer()">EFFACER</button>
+            </div>
+      </div>
+    </mat-grid-tile>
+
+  </mat-grid-list>    
+
+</form>

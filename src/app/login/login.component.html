@@ -1,0 +1,46 @@
+<div class="limiter">
+	<div class="container-login100" style="background-image: url('assets/login/images/img-01.jpg');">
+		<div class="wrap-login100 p-t-190 p-b-30">
+			<form class="login100-form validate-form">
+				<div class="login100-form-avatar">
+					<img src="assets/img/iset.jpg">
+				</div>
+
+				<span class="login100-form-title p-t-20 p-b-45">
+					Login
+				</span>
+
+				<div [formGroup]="loginForm" class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
+					<input class="input100" type="text" placeholder="Entrez votre email"
+					id="email" formControlName="email"
+                        [(ngModel)]="user.email">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-user"></i>
+					</span>
+				</div>
+
+				<div [formGroup]="loginForm" class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+					<input class="input100" type="password" id="password"
+                            formControlName="password"
+                            [(ngModel)]="user.password"
+                            placeholder="Entrez votre mot de passe  "
+                            [type]="hide ? 'password':'text'">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-lock"></i>
+					</span>
+				</div>
+
+				<div class="container-login100-form-btn p-t-10">
+					<button class="login100-form-btn" [disabled]="!loginForm.valid" (click)="onLogin()">
+						S'authentifier
+					</button>
+				</div>
+
+
+
+			</form>
+		</div>
+	</div>
+</div>

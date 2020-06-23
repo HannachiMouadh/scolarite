@@ -1,0 +1,57 @@
+<mat-toolbar>
+  <span>{{demandcertService.form.controls['$key'].value?"MODIFIER DEMANDE":"AJOUTER DEMANDE"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="demandcertService.form" class="normal-form" (submit)="onSubmit()">
+  <mat-grid-list cols="2" rowHeight="300px">
+
+   <mat-grid-tile>
+    <div class="controles-container">
+        <input type="hidden" formControlName="$key">        
+        <mat-form-field>
+          <input formControlName="fullName" matInput placeholder="Nom Complet">
+          <mat-error>Tapez votre nom </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+       <input formControlName="dateDepot" matInput [matDatepicker]="picker2" placeholder="Date de depot">
+       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+       <mat-datepicker #picker2></mat-datepicker>
+          <mat-error>Choisissez une date</mat-error>
+     </mat-form-field>
+     <mat-form-field>
+      <input formControlName="cin" matInput placeholder="Carte CIN*">
+      <mat-error *ngIf="demandcertService.form.controls['cin'].errors?.required">Ce champ est obligatoir !!</mat-error>
+      <mat-error *ngIf="demandcertService.form.controls['cin'].errors?.minlength">Minimum 8 charactère !!</mat-error>
+      <mat-error *ngIf="demandcertService.form.controls['cin'].errors?.maxlength">Maximum 8 charactère !!</mat-error>
+    </mat-form-field>
+    </div>
+   </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <mat-label>Classe</mat-label>
+          <mat-select formControlName="classe">
+            <mat-option *ngFor="let class of classes" [value]="class.value">
+              {{class.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Spécialité</mat-label>
+          <mat-select formControlName="specialite">
+            <mat-option *ngFor="let specialty of specialties" [value]="specialty.value">
+              {{specialty.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+             <br>
+            <div class="button-row">
+                <button mat-raised-button color="primary" type="submit"  [disabled]="demandcertService.form.invalid">AJOUTER</button>
+                <button mat-raised-button color="warn" (click)="onEffacer()">EFFACER</button>
+            </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>    
+</form>

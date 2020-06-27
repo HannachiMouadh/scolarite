@@ -35,20 +35,17 @@
       <mat-cell *matCellDef="let element" >{{element.cin}}</mat-cell>
     </ng-container>
     <ng-container type="hidden" matColumnDef="userId" >
-      <mat-header-cell *matHeaderCellDef mat-sort-header>userId</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.userId}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="note" >
         <mat-header-cell *matHeaderCellDef mat-sort-header>Note</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.note}}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.note }}</mat-cell>
       </ng-container>
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>Decision</mat-header-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions2">
+    <ng-container matColumnDef="actions2" >
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
-         <button mat-icon-button color="warn"(click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>
+         <button mat-icon-button color="warn" *ngIf="(isAdmin | async)" (click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>
         </mat-cell>
       </ng-container>
 

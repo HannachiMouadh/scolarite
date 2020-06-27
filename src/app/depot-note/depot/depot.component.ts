@@ -73,8 +73,7 @@ export class DepotComponent implements OnInit {
               public afStorage:AngularFireStorage,
               public db:AngularFireDatabase,
               private dialog:MatDialog,
-              private service:ImageService,
-              private classService:ClassService
+
               ) { }
 
 
@@ -93,7 +92,7 @@ export class DepotComponent implements OnInit {
       this.depotNoteService.form.reset();
       this.depotNoteService.initializeFormGroup();
       this.notificationService.success('Fichier de note ajouté ');
-      this.dialogRef.close();
+      this.onClose();
   }}
   onClose(){
     this.depotNoteService.form.reset();

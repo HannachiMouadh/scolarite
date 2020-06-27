@@ -76,6 +76,7 @@ import { DialogService } from './shared/dialog.service';
 import 'hammerjs';
 import{SpecialiteService} from './shared/specialite.service';
 import {ClassService} from './shared/class.service';
+import { NoteComponent } from './note/note.component';
 
 
 
@@ -101,6 +102,7 @@ import {ClassService} from './shared/class.service';
     DepotListComponent,
     DemandeListComponent,
     NotesListComponent,
+    NoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,6 +152,6 @@ import {ClassService} from './shared/class.service';
   bootstrap: [AppComponent],
   entryComponents:[NotesListComponent,
     EnseignantComponent,MatConfirmDialogComponent,NotesListComponent,
-    EtudiantComponent,LoginComponent,DemandetdComponent,DepotComponent],
+    EtudiantComponent,LoginComponent,DemandetdComponent,DepotComponent,NoteComponent],
 })
 export class AppModule { }

@@ -11,7 +11,6 @@
   </div>
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="listData" matSort>
-
       <ng-container matColumnDef="nameFull" >
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nom etudiant</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.nameFull}}</mat-cell>
@@ -36,14 +35,18 @@
     </ng-container>
     <ng-container matColumnDef="note" >
       <mat-header-cell *matHeaderCellDef mat-sort-header>Note</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <input matInput type="number" min="0" max="20" [(ngModel)]="value">
-        </mat-cell>
+        <mat-cell *matCellDef="let element">{{element.note}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="actions">
+    <ng-container type="hidden" matColumnDef="userId" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>userId</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.userId}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions2">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-       <button mat-icon-button color="warn" (click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>
+        <button mat-icon-button color="primary" (click)="onNote(row)"  ><mat-icon>note_add</mat-icon></button>
+       <button mat-icon-button color="warn" *ngIf="(isAdmin | async)" (click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>
+       <button mat-icon-button color="warn" (click)="deleteNote(row)"><mat-icon>autorenew</mat-icon></button>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="loading">

@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -23,19 +24,18 @@ export class DepotNoteService {
                 this.afAuth.authState.subscribe(user=>{
                   if(user) this.userId=user.uid
                 });
-              this.demandes=this.firebase.list('note').valueChanges();
 
               }
 
   form:FormGroup=new FormGroup({
     $key:new FormControl(null),
     nameFull:new FormControl(''),
-    dateAttribution: new FormControl('',Validators.required),
+    dateAttribution: new FormControl(''),
     classe: new FormControl('',Validators.required),
     matiere: new FormControl('',Validators.required),
     userId:new FormControl(''),
     cin:new FormControl(''),
-    note:new FormControl(''),
+    note:new FormControl('note non attribuée'),
   });
 
   initializeFormGroup(){
@@ -47,7 +47,7 @@ export class DepotNoteService {
       classe: '',
       matiere:'',
       userId:this.userId,
-      note:'',
+      note:'note non attribuée',
     });
   }
 //database_actions
@@ -78,6 +78,18 @@ insertDemande(demande){
   });
 
 }
+updateDemande(demande) {
+  this.demandesList.update(demande.$key,
+    {
+      nameFull: demande.nameFull,
+      classe: demande.classe,
+      cin: demande.cin,
+      userId: demande.userId,
+      matiere: demande.matiere,
+      dateAttribution: demande.dateAttribution,
+      note: demande.note,
+    });
+}
 
 
 
@@ -89,6 +101,13 @@ deleteDemande($key:string){
 
 
 Accept(demande){
-  this.demandesList.update(`${demande.$key}`,{note: this.userId});
+  this.demandesList.update(`${demande.$key}`,{note:'10'});
+}
+Decline(demande){
+  this.demandesList.update(`${demande.$key}`,{note:'demande refusée '});
+
+}
+populateForm(demande) {
+  this.form.setValue(demande);
 }
 }

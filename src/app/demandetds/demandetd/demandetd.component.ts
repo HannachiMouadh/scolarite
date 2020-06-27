@@ -63,7 +63,7 @@ export class DemandetdComponent implements OnInit {
       this.demandcertService.insertDemande(this.demandcertService.form.value);
       this.demandcertService.form.reset();
       this.demandcertService.initializeFormGroup();
-      this.notificationService.success('Demande de congé ajouté ');
+      this.notificationService.success('Demande de certif ajouté ');
       this.dialogRef.close();
   }
   }

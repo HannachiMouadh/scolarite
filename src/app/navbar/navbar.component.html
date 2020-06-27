@@ -15,7 +15,7 @@
           <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="enseignants"><mat-icon>group_add </mat-icon> Gestion des enseignants</button></mat-list-item> 
           <mat-list-item class="list" *ngIf="(isEns | async)"> <button  mat-icon-button routerLink="depot-note" ><mat-icon>speaker_notes </mat-icon> Dépot notes </button></mat-list-item>
           <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="demande-list" ><mat-icon>list_alt </mat-icon> Valider les demandes </button></mat-list-item>
-          <mat-list-item class="list" *ngIf="(user | async) && !(isEns | async) && !(isAdmin | async)"> <button  mat-icon-button routerLink="notes-list" ><mat-icon>list_alt </mat-icon>Les notes attribués </button></mat-list-item>
+          <mat-list-item class="list" *ngIf="(user | async) && !(isEns | async)"> <button  mat-icon-button routerLink="notes-list" ><mat-icon>list_alt </mat-icon>Les notes attribués </button></mat-list-item>
         </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

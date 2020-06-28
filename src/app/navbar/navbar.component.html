@@ -8,8 +8,8 @@
     Connecté: <br>
      {{(user | async)?.email}}
     </mat-toolbar>
+    <br><br>
     <mat-nav-list>
-      <br><br>
       <mat-list-item class="list" *ngIf="(user | async) && !(isEns | async) && !(isAdmin | async)"> <button  mat-icon-button routerLink="demandetds"><mat-icon>assignment_returned </mat-icon> Demande d'attestation</button></mat-list-item>
           <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="etudiants"><mat-icon>school </mat-icon> Gestion des etudiants</button></mat-list-item> 
           <mat-list-item class="list" *ngIf="(isAdmin | async)"> <button  mat-icon-button routerLink="enseignants"><mat-icon>group_add </mat-icon> Gestion des enseignants</button></mat-list-item> 

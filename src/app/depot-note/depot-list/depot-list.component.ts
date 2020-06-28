@@ -11,6 +11,13 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ImageService } from '../../shared/image.service';
 import { NoteComponent } from 'src/app/note/note.component';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth.service';
+import {of as observableOf, Observable} from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -21,14 +28,55 @@ import { NoteComponent } from 'src/app/note/note.component';
 export class DepotListComponent implements OnInit {
   imageList: any[];
   rowIndexArray: any[];
-  
   actionDemande: boolean;
 
-  constructor(private depotService:DepotNoteService , private dialog:MatDialog,
+  user: Observable<firebase.User>;
+
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+    
+    uid=this.Auth.authState.pipe(
+      map(authState=>{
+        if(!authState){
+          return null;
+        }else{
+          return authState.uid;
+        }
+      })
+      );
+      isEns:Observable<boolean>=this.uid.pipe(
+        switchMap(uid=>{
+          if(!uid){
+            return observableOf(false);
+          }else{
+            return this.db.object<boolean>('/isEns/'+uid).valueChanges();
+          }
+        })
+      );
+  isAdmin:Observable<boolean>=this.uid.pipe(
+    switchMap(uid=>{
+      if(!uid){
+        return observableOf(true);
+      }else{
+        return this.db.object<boolean>('/isAdmin/'+uid).valueChanges();
+      }
+    })
+  );
+
+  constructor(private depotService:DepotNoteService,
     private notificationService:NotificationService,
     private dialogService:DialogService,
     private storage: AngularFireStorage,
-    private db: AngularFirestore,) { }
+    public Auth:AngularFireAuth,
+    private breakpointObserver: BreakpointObserver,
+        public router:Router,
+        private db:AngularFireDatabase,
+        private dialog:MatDialog,
+        private authservice:AuthService,
+          ) { this.user = this.authservice.userStatus();}
 
   listData: MatTableDataSource<any>;
   displayedColumns: string[]=['nameFull','dateAttribution','classe','matiere','cin','note','actions2'];
@@ -53,16 +101,6 @@ export class DepotListComponent implements OnInit {
       });
   }
 
-  onAccept(row){
-    this.dialogService.openConfirmDialog('Vous voulez vraiment Attribuer cette note ?')
-    .afterClosed().subscribe(res=>{
-      if(res){
-        this.depotService.Accept(row);
-            this.notificationService.success('note attribué !');
-            this.actionDemande = false ;
-      }
-    });
-}
 
   onSearchClear(){
     this.searchKey="";
@@ -101,18 +139,6 @@ export class DepotListComponent implements OnInit {
   }
   deleteNote(row){
     row.note = '';
-    console.log(row)
-  /*
-    this.depotService.form.note = null;
-    this.depotService.form.cin = row.cin;
-    this.depotService.form.classe = row.classe;
-    this.depotService.form.matiere = row.matiere;
-    this.depotService.form.dateAttribution = row.dateAttribution;
-    this.depotService.form.nameFull = row.nameFull;
-    this.depotService.form.$key = row.$key;
-    this.depotService.form.userId = row.userId;
-    */
-    
     this.depotService.updateDemande(row);
   }
 }

@@ -1,5 +1,5 @@
 <div class="search-div">
-  <button mat-raised-button (click)="onCreate()" class="addbtn">
+  <button mat-raised-button *ngIf="(isAdmin | async)" (click)="onCreate()" class="addbtn">
     <mat-icon>add</mat-icon>AJOUTER
   </button>
   <mat-form-field class="search-form-field" floatLabel="never">
@@ -44,9 +44,9 @@
     <ng-container matColumnDef="actions2">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" (click)="onNote(row)"  ><mat-icon>note_add</mat-icon></button>
+        <button mat-icon-button color="primary" *ngIf="(isEns | async)" (click)="onNote(row)"  ><mat-icon>note_add</mat-icon></button>
        <button mat-icon-button color="warn" *ngIf="(isAdmin | async)" (click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>
-       <button mat-icon-button color="warn" (click)="deleteNote(row)"><mat-icon>autorenew</mat-icon></button>
+        <button mat-icon-button color="warn" *ngIf="(isEns | async)" (click)="deleteNote(row)"><mat-icon>autorenew</mat-icon></button>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="loading">

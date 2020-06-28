@@ -29,11 +29,8 @@ export class NoteComponent implements OnInit {
   }
   onSubmit(){
     console.log(this.depotNoteService.form.value)
-   
       this.depotNoteService.updateDemande(this.depotNoteService.form.value);
-   /* this.depotNoteService.form.reset();
-      this.depotNoteService.initializeFormGroup();*/
-      this.notificationService.success('Fichier de note ajouté ');
+      this.notificationService.success('Note ajouté ');
       this.dialogRef.close();
 }
 onClose(){

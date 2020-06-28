@@ -138,7 +138,7 @@ export class DepotListComponent implements OnInit {
     this.dialog.open(NoteComponent,dialogConfig);
   }
   deleteNote(row){
-    row.note = '';
+    row.note = 'note non attribuée';
     this.depotService.updateDemande(row);
   }
 }

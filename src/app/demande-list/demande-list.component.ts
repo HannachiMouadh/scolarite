@@ -68,7 +68,7 @@ export class DemandeListComponent implements OnInit {
 }
 
 onDecline(row){
-  this.dialogService.openConfirmDialog('Vous voulez vraiment accepter cette demande ?')
+  this.dialogService.openConfirmDialog('Vous voulez vraiment rejeter cette demande ?')
   .afterClosed().subscribe(res=>{
     if(res){
       this.certifService.Decline(row);

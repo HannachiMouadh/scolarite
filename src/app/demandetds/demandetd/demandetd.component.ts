@@ -35,9 +35,9 @@ export class DemandetdComponent implements OnInit {
   ];
 
   specialties: Specialty[] = [
-    {value: 'L2RSI', viewValue: 'L2RSI'},
-    {value: 'L2SEM', viewValue: 'L2SEM'},
-    {value: 'L3RSI', viewValue: 'L3RSI'},
+    {value: 'Aucun', viewValue: 'Aucun'},
+    {value: 'RSI', viewValue: 'RSI'},
+    {value: 'SEM', viewValue: 'SEM'},
   ];
 
    constructor(private demandcertService:DemandcertService,

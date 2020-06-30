@@ -19,7 +19,6 @@ export class EtudianttService {
     $key: new FormControl(null),
     nomComplet: new FormControl('', Validators.required),
     emaill: new FormControl('', [Validators.required,Validators.email]),
-    pw:new FormControl('',Validators.required),
     telephone: new FormControl('', [Validators.required, Validators.minLength(8)]),
     CIN: new FormControl('', [Validators.required, Validators.minLength(8)]),
     Resid: new FormControl(''),
@@ -32,7 +31,6 @@ export class EtudianttService {
       $key: null,
       nomComplet: '',
       emaill: '',
-      pw:'',
       CIN: '',
       telephone: '',
       Resid: '',
@@ -51,7 +49,6 @@ export class EtudianttService {
     this.etudiantList.push({
       nomComplet: etudiant.nomComplet,
       emaill: etudiant.emaill,
-      pw: etudiant.pw,
       CIN: etudiant.CIN,
       telephone: etudiant.telephone,
       Resid: etudiant.Resid,
@@ -70,7 +67,6 @@ export class EtudianttService {
       {
         nomComplet: etudiant.nomComplet,
         emaill: etudiant.emaill,
-        pw: etudiant.pw,
         CIN: etudiant.CIN,
         telephone: etudiant.telephone,
         Resid: etudiant.Resid,

@@ -33,6 +33,10 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>CIN</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.cin}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="type" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type note</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="note" >
       <mat-header-cell *matHeaderCellDef mat-sort-header>Note</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.note}}</mat-cell>

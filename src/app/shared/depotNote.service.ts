@@ -35,6 +35,7 @@ export class DepotNoteService {
     matiere: new FormControl('',Validators.required),
     userId:new FormControl(''),
     cin:new FormControl(''),
+    type:new FormControl(''),
     note:new FormControl('note non attribuée'),
   });
 
@@ -46,6 +47,7 @@ export class DepotNoteService {
       cin:'',
       classe: '',
       matiere:'',
+      type:'',
       userId:this.userId,
       note:'note non attribuée',
     });
@@ -73,6 +75,7 @@ insertDemande(demande){
     matiere:demande.matiere,
     userId: demande.userId,
     note:demande.note,
+    type:demande.type,
     nameFull: demande.nameFull,
 
   });
@@ -87,6 +90,7 @@ updateDemande(demande) {
       userId: demande.userId,
       matiere: demande.matiere,
       dateAttribution: demande.dateAttribution,
+      type: demande.type,
       note: demande.note,
     });
 }
@@ -100,13 +104,8 @@ deleteDemande($key:string){
 
 
 
-Accept(demande){
-  this.demandesList.update(`${demande.$key}`,{note:'10'});
-}
-Decline(demande){
-  this.demandesList.update(`${demande.$key}`,{note:'demande refusée '});
 
-}
+
 populateForm(demande) {
   this.form.setValue(demande);
 }

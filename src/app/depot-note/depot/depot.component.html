@@ -52,6 +52,15 @@
           <mat-error>Ce champ est obligatoir !!</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>Type Note</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let typeNote of typeNotes" [value]="typeNote.value">
+              {{typeNote.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Ce champ est obligatoir !!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
           <input formControlName="cin" matInput placeholder="CIN">
           <mat-error>Ce champ est obligatoir !!</mat-error>
         </mat-form-field>

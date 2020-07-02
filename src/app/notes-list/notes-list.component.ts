@@ -81,7 +81,7 @@ export class NotesListComponent implements OnInit {
         }
 
     listData: MatTableDataSource<any>;
-    displayedColumns: string[]=['nameFull','dateAttribution','classe','matiere','cin','note','actions2'];
+    displayedColumns: string[]=['nameFull','dateAttribution','classe','matiere','cin','type','note','actions2'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
     searchKey:String;
@@ -112,34 +112,6 @@ export class NotesListComponent implements OnInit {
     applyFilter(){
       this.listData.filter=this.searchKey.trim().toLowerCase();
     }
-
-    onAccept(row){
-      this.dialogService.openConfirmDialog('Vous voulez vraiment accepter cette note ?')
-      .afterClosed().subscribe(res=>{
-        if(res){
-          this.depotService.Accept(row);
-              this.notificationService.success('note acceptée !');
-              this.actionDemande = false ;
-        }
-      });
-}
-
-onReset(row){
-
-}
-
-onDecline(row){
-  this.dialogService.openConfirmDialog('Vous voulez vraiment accepter cette demande ?')
-  .afterClosed().subscribe(res=>{
-    if(res){
-      this.depotService.Decline(row);
-          this.notificationService.warn('demande refusée !');
-          this.actionDemande = false ;
-    }
-  });
-}
-
-
 onDelete($key){
 
   this.dialogService.openConfirmDialog('Vous voulez vraiment supprimer cette demande ?')

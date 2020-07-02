@@ -79,7 +79,7 @@ export class DepotListComponent implements OnInit {
           ) { this.user = this.authservice.userStatus();}
 
   listData: MatTableDataSource<any>;
-  displayedColumns: string[]=['nameFull','dateAttribution','classe','matiere','cin','note','actions2'];
+  displayedColumns: string[]=['nameFull','dateAttribution','classe','matiere','cin','type','note','actions2'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey:String;

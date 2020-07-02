@@ -24,6 +24,10 @@ interface Subject {
   value: string;
   viewValue: string;
 }
+interface TypeNote {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-depot',
@@ -63,6 +67,13 @@ export class DepotComponent implements OnInit {
     {value: 'AdminSerReseau', viewValue: 'AdminSerReseau'},
     {value: 'Françai', viewValue: 'Françai'},
     {value: 'Anglais', viewValue: 'Anglais'},
+
+  ];
+  typeNotes: TypeNote[] = [
+    {value: 'NP', viewValue: 'NP'},
+    {value: 'CC', viewValue: 'CC'},
+    {value: 'DS', viewValue: 'DS'},
+    {value: 'TP', viewValue: 'TP'},
 
   ];
 
